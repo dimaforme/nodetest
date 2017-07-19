@@ -3,6 +3,8 @@ const bodyParser = require('body-parser')
 var mongoose = require('mongoose');
 const app = express();
 
+app.set('port', (process.env.PORT || 5000));
+
 var router = express.Router();
 
 app.set('view engine', 'ejs');
@@ -16,9 +18,9 @@ app.use(bodyParser.urlencoded({
     extended: true
 }))
 
-app.listen(3000, function () {
-    console.log('listening on 3000')
-})
+app.listen(app.get('port'), function() {
+  console.log('Node app is running on port', app.get('port'));
+});
 
 router.get('/users', users_controller.user_list);
 router.get('/users/create', users_controller.create);
